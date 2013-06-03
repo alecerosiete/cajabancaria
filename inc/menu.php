@@ -3,17 +3,35 @@
 //$user = getUser();
 
 ?>
+<style type="text/css">
+    .navigation li ul li {
+        width:159px;
+    }
+    
+
+    
+</style>
     <div class="navbar">
           <div class="navbar-inner">
             <div class="container">
               <ul class="navigation">
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Consulta de Afiliados</a></li>
-                    <li><a href="#">Prestamos</a></li>
-                    <li><a href="#">Tarjetas de Credito</a></li>
-                    <li><a href="#">Aportes</a></li>
-                    <li><a href="#">Reservacion</a></li>
-                 
+                    <li><a href="./index.php">Inicio</a></li>
+                    
+                    <li><a href="#">Afiliados</a>
+                        <ul>
+                            <?php if(getRole(ROLE_JUBILADO) || getRole(ROLE_PENSIONADO)) echo "<li><a href='./jubilados.php'>Pagos Jubilaciones</a></li>"; ?>
+                            <li><a href="./prestamos.php">Prestamos</a></li>
+                            <li><a href="./tarjetas-de-credito.php">Tarjetas de Credito</a></li>
+                            <?php if(!getRole(ROLE_PENSIONADO)) echo "<li><a href='./aportes.php'>Aportes</a></li>"; ?>
+                        </ul>
+                        <div class="clear"></div>
+                    </li>
+                   
+                    <li><a href="./estados-de-cuenta.php">Estados de Cuenta</a></li>
+                    <?php if(getRole(ROLE_DIRECTIVO)) echo "<li><a href='#'>Consultas</a></li>"; ?>
+                    <li><a href="#">Reservaciones</a></li>
+                    <li><a href="#">Inmuebles</a></li>
+                    
                 </ul>
 
                 <div class="clear"></div>

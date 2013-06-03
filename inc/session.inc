@@ -8,10 +8,10 @@ define('DB_USER', 'caja');
 define('DB_PASSWORD', 'caja');
 
 define('ROLE_SYSTEM', 'roleAdmin');
-define('ROLE_SYSTEM_USER', 'roleAdminUser');
-define('ROLE_CUSTOMER', 'roleCustomer');
-define('ROLE_CUSTOMER_BLACKLIST', 'roleBlacklist');
-define('ROLE_REPORT', 'roleReports');
+define('ROLE_AFILIADO', 'afiliado');
+define('ROLE_DIRECTIVO', 'directivo');
+define('ROLE_JUBILADO', 'jubilado');
+define('ROLE_PENSIONADO', 'pensionado');
 
 define('S_USER', 'user');
 define('S_ERROR_LIST', 'errors');
@@ -28,9 +28,14 @@ function getUser() {
     return $_SESSION[S_USER];
 }
 
-function setUser($padron, $data) {
-    $_SESSION[S_USER] = array('PADRON' => $padron, 'data' => $data);
+//function setUser($padron, $data) {
+//    $_SESSION[S_USER] = array('PADRON' => $padron, 'data' => $data);
+//}
+
+function setUser($ci, $data) {
+    $_SESSION[S_USER] = array('CI' => $ci, 'data' => $data);
 }
+
 
 function assertUser() {
     if (!hasUser()) {
@@ -184,4 +189,40 @@ function xhtmlOptions($list, $selected) {
   }
   return $options;
 }
+
+function formatoFecha($fecha)
+{
+    return substr($fecha, 0,4)."-".substr($fecha, 4, 2)."-".substr($fecha, 6, 2);
+}
+
+function formatoFechaMMAA($fecha)
+{
+    if(strlen($fecha) == 4){
+        return substr($fecha, 0, 2)."-".substr($fecha, 2, 2);
+    }else{
+        return "0".substr($fecha, 0, 1)."-".substr($fecha, 1, 2);
+    }
+}
+
+
+function formatoDeTarjeta($tc)
+{
+    return substr($tc, 0,4)."-".substr($tc, 4,4)."-".substr($tc, 8,4)."-".substr($tc,12,4);
+}
+
+function formatoFechaDDMMAAAA($fecha)
+{
+    if(strlen($fecha) == 7){
+        $fecha = "0".$fecha;
+    }
+    return substr($fecha, 0,2)."-".substr($fecha, 2, 2)."-".substr($fecha, 4, 4);
+}
+
+function getAccesDenied()
+{
+   $html = "<div class='alert alert-danger'>No tiene privilegios para acceder a esta p&aacute;gina, contactese con el administrador del sistema.</div>";
+   return $html;
+}   
+
 ?>
+

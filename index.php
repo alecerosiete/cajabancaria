@@ -3,22 +3,36 @@ require './inc/session.inc';
 assertUser();
 $user = getUser();
 require './inc/conexion-functions.php';
+require './inc/sql-functions.php';
+
 $db = conect();
+$tipo_usuario = $user['data']['tipo_de_usuario'];
+
+$userInfo = getUserInfo();
+
+$ciudad = getCiudad($userInfo[0]['CIUDAD']);
+
+$localidad = getLocalidad($userInfo[0]['LOCALIDAD']);
+
+$barrio = getBarrio($userInfo[0]['BARRIO']);
+
+//print_r($user);
+$role = getRole(ROLE_PENSIONADO);
+
+print_r($role);
 ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Template &middot; Bootstrap</title>
+    <title>Caja Bancaria - Caja de Jubilaciones y Pensiones de Empleados de Bancos y Afines</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <?php require './inc/header.php'; ?>
     <style type="text/css">
         
-        
-        
-        .carousel {
+      .carousel {
         margin-left: 0px;
         margin-right: 0px;
       }
@@ -60,7 +74,7 @@ $db = conect();
     <div class="container">
       <div class="header-caja-bancaria">
           <div class="btn-logout">
-            Conectado como: Usuario <?=$user['data']['NOMBRE']?> <a href="./login.php" class="btn btn-warning">Salir</a>
+            Conectado como: <?=$user['data']['nombre']?> <a href="./login.php" class="btn btn-warning">Salir</a>
           </div>
           <div class="alert-msg-show">
             <?php include("./tmpl/success_panel.inc")?>
@@ -75,54 +89,59 @@ $db = conect();
       B = Beneficiario
       P = Particular
       -->
-          
+      
       <!-- Formulario de Datos Personales -->         
       <div class="hero-unit">
         <h3>Datos personales</h3>
-        <table id="personal-data" class="table table-bordered">
+        <table id="personal-data" class="table table-striped" style="font-size:12px">
             <tbody>
               <tr>
-                <th>Tipo de Cliente: </th><td><?= $user['data']['TIPO DE CLIENTE'] == "B" ? "Beneficiario" : "Particular" ?> </td>
-                <th>Padron: </th><td><?= $user['PADRON'] ?></td>
-                <th>Banco: </th><td colspan="2"><?= $user['data']['NOMBREBANCO'] ?></td>
+                <th>Tipo de Cliente: </th><td><?= $user['data']['descripcion']?> </td>
+                <th>Padron: </th><td><?= $userInfo[0]['PADRON'] ?></td>
+                <th>Banco: </th><td colspan="2"><?= $userInfo[0]['NOMBREBANCO'] ?></td>
                 
               </tr>
               <tr>
-               <th>Cedula de Id: </th><td><?= $user['data']['CEDULA DE IDENTIDAD'] ?></td>
-                <th>Nombre: </th><td><?= $user['data']['NOMBRE'] ?></td>
-                <th>Apellido: </th><td colspan="2"><?= $user['data']['APELLIDO'] ?></td>
+               <th>Cedula de Id: </th><td><?= $userInfo[0]['CEDULA DE IDENTIDAD'] ?></td>
+                <th>Nombre: </th><td><?= $userInfo[0]['NOMBRE'] ?></td>
+                <th>Apellido: </th><td colspan="2"><?= $userInfo[0]['APELLIDO'] ?></td>
+                
+              </tr>
+            
+
+
+
+              <tr>
+                <th>Direccion: </th><td><?= $userInfo[0]['NOMBRE DE LA CALLE'] ?></td>
+                <th>Numero: </th><td ><?= $userInfo[0]['NUMERO DE LA CASA'] ?></td> 
+                <th>Barrio: </th><td><?= $barrio ?></td>
                 
               </tr>
               <tr>
-                <th>Direccion: </th><td><?= $user['data']['NOMBRE DE LA CALLE'] ?></td>
-                <th>Numero: </th><td ><?= $user['data']['NUMERO DE LA CASA'] ?></td> 
-                <th>Barrio: </th><td><?= $user['data']['BARRIO'] ?></td>
+                <th>Ciudad: </th><td><?= $ciudad ?></td>
+                <th>Localidad: </th><td ><?= $localidad ?></td>
+                <th>Perfil: </th><td><?= $userInfo[0]['PERFILWEB'] ?></td>
                 
               </tr>
               <tr>
-                <th>Ciudad: </th><td><?= $user['data']['CIUDAD'] ?></td>
-                <th>Localidad: </th><td ><?= $user['data']['LOCALIDAD'] ?></td>
-                <th>Perfil: </th><td><?= $user['data']['PERFILWEB'] ?></td>
-                
-              </tr>
-              <tr>
-                  <th>Celular 1: </th><td ><?= $user['data']['CELULAR 1'] ?></td>
-                  <th>Celular 2: </th><td ><?= $user['data']['CELULAR 2'] ?></td>
-                  <th>Linea Baja 1: </th><td><?= $user['data']['TELEFONO 1'] ?></td>
+                  <th>Celular 1: </th><td ><?= $userInfo[0]['CELULAR 1'] ?></td>
+                  <th>Celular 2: </th><td ><?= $userInfo[0]['CELULAR 2'] ?></td>
+                  <th>Linea Baja 1: </th><td><?= $userInfo[0]['TELEFONO 1'] ?></td>
                   
               </tr>
               
               <tr>
-                  <th>Linea Baja 2: </th><td><?= $user['data']['TELEFONO 2'] ?></td>
-                  <th>Email: </th><td colspan="3"><?= $user['data']['CORREO ELECTRONICOWEB'] ?></td>
+                  <th>Linea Baja 2: </th><td><?= $userInfo[0]['TELEFONO 2'] ?></td>
+                  <th>Email: </th><td colspan="3"><?= $userInfo[0]['CORREO ELECTRONICOWEB'] ?></td>
                   
               </tr>
              
             </tbody>
           </table>
-        <input type="hidden" value='<?=$user['PADRON']?>' id='padron-info'>
-        <p>
-            <a id="modal-edit-user-data"  data-toggle="modal" href="#modalUserData" class="btn btn-large btn-primary">Editar</a>
+        <input type="hidden" value='<?=$userInfo[0]['CEDULA DE IDENTIDAD']?>' id='ci-info'>
+        <p align="right">
+            <a id="modal-edit-user-data"  data-toggle="modal" href="#modalUserData" class="btn btn-primary">Modificar mis datos</a>
+        </p>
       </div>
       
       <!-- Modal Agregar Clientes-->
@@ -136,39 +155,76 @@ $db = conect();
                <table class="table-edit-data">
                   <tr>
                       <td><label>Direccion: </label></td>
-                      <td><input type="text" id="nombre-de-la-calle" value="<?= $user['data']['NOMBRE DE LA CALLE'] ?>"></td>
+                      <td><input type="text" id="nombre-de-la-calle" value="<?= $userInfo[0]['NOMBRE DE LA CALLE'] ?>"></td>
                       <td><label>Numero: </label></td>
-                      <td><input type="text" id="numero-de-la-casa" value="<?= $user['data']['NUMERO DE LA CASA'] ?>"> </td>
+                      <td><input type="text" id="numero-de-la-casa" value="<?= $userInfo[0]['NUMERO DE LA CASA'] ?>"> </td>
                                          
                   </tr>
                   
                     <tr>
                       <td><label>Barrio: </label></td>
-                      <td><input type="text" id="nombre-del-barrio" value="<?= $user['data']['BARRIO'] ?>"></td>
+                      <td>
+                        <select name="nombre-del-barrio" id="nombre-del-barrio">
+                          <?php
+                            $barrios = getBarrios();
+
+                            foreach ($barrios as $item){
+                                echo "<option name='".$item['BARRIO']."'>".$item['DESCRIPCION']."</option>";
+                            }
+                          ?>
+                        </select>
+                      </td>
+                      
                       <td><label>Ciudad: </label></td>
-                      <td><input type="text" id="nombre-de-la-ciudad" value="<?= $user['data']['CIUDAD'] ?>"></td>
+                      <td>
+                          
+                          <select name="nombre-de-la-ciudad" id="nombre-de-la-ciudad">
+                          <?php
+                            $ciudades = getCiudades();
+
+                            foreach ($ciudades as $item){
+                                echo "<option name='".$item['CIUDAD']."'>".$item['DESCRIPCION']."</option>";
+                            }
+                          ?>
+                        </select>
+                          
+                          
+                          <!input type="text" id="nombre-de-la-ciudad" value="<?= $userInfo[0]['CIUDAD'] ?>"></td-->
                     
                     </tr>
                      
                     <tr>
                         <td><label>Localidad: </label></td>
-                        <td><input type="text" id="nombre-de-localidad" value="<?= $user['data']['LOCALIDAD'] ?>"></td>
+                        
+                        <td>
+                            <select name="nombre-de-localidad" id="nombre-de-localidad">
+                                <?php
+                                  $localidades = getLocalidades();
+
+                                  foreach ($localidades as $item){
+                                      echo "<option name='".$item['LOCALIDAD']."'>".$item['DESCRIPCION']."</option>";
+                                  }
+                                ?>
+                            </select>
+                            <!--input type="text" id="nombre-de-localidad" value="<?= $userInfo[0]['LOCALIDAD'] ?>"-->
+                        
+                        </td>
                         <td><label>Celular 1: </label></td>
-                        <td><input type="text" id="celular-1" value="<?= $user['data']['CELULAR 1'] ?>"></td>
+                        <td><input type="text" id="celular-1" value="<?= $userInfo[0]['CELULAR 1'] ?>"></td>
                    
                     </tr>
                     <tr>
                         <td><label>Celular 2: </label></td>
-                        <td><input type="text" id="celular-2" value="<?= $user['data']['CELULAR 2'] ?>"></td>
+                        <td><input type="text" id="celular-2" value="<?= $userInfo[0]['CELULAR 2'] ?>"></td>
                         <td><label>Linea Baja 1: </label></td>
-                        <td><input type="text" id='linea-baja-1' value="<?= $user['data']['TELEFONO 1'] ?>"></td>
+                        <td><input type="text" id='linea-baja-1' value="<?= $userInfo[0]['TELEFONO 1'] ?>"></td>
                     </tr>
                         
                      <tr> 
                         <td><label>Linea Baja 2: </label></td>
-                        <td><input type="text" id='linea-baja-2' value="<?= $user['data']['TELEFONO 2'] ?>"></td>
+                        <td><input type="text" id='linea-baja-2' value="<?= $userInfo[0]['TELEFONO 2'] ?>"></td>
                         <td><label>Email: </label></td>
-                        <td><input type="text" id="e-mail" value="<?= $user['data']['CORREO ELECTRONICOWEB'] ?>"></td>
+                        <td><input type="text" id="e-mail" value="<?= $userInfo[0]['CORREO ELECTRONICOWEB'] ?>"></td>
                
                     </tr>
                </table>

@@ -6,7 +6,8 @@ $(document).ready(function(){
     $("#error-panel").delay(4000).hide("fade",3000)
     
     $("#btn-edit-user-data").click(function(){
-            var padron = $("#padron-info").val();
+            var ci = $("#ci-info").val();
+            
             var numeroDeCasa = $("#numero-de-la-casa").val();
             var barrio = $("#nombre-del-barrio").val();
             var ciudad = $("#nombre-de-la-ciudad").val();
@@ -20,7 +21,7 @@ $(document).ready(function(){
             $.ajax({
                     type: "POST",
                     url: "./actions/edit-user-data-action.php",
-                    data: {padron:padron,numeroDeCasa:numeroDeCasa,barrio:barrio,ciudad:ciudad,calle:calle,localidad:localidad,celular1:celular1,celular2:celular2,lineaBaja1:lineaBaja1,lineaBaja2:lineaBaja2,email:email},
+                    data: {ci:ci,numeroDeCasa:numeroDeCasa,barrio:barrio,ciudad:ciudad,calle:calle,localidad:localidad,celular1:celular1,celular2:celular2,lineaBaja1:lineaBaja1,lineaBaja2:lineaBaja2,email:email},
                     success: function(){
                         $("#modalUserData").modal("hide");
                         url = "http://localhost";
