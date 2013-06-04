@@ -46,7 +46,8 @@ $jubilaciones = getJubilados($user['CI']);
                 
             
         <div class="hero-unit">
-            <H3 style="text-align:right;color:#E35300">Jubilaciones</H3>
+             <?php include ('./inc/userInfo.php');?>
+            <H3 style="text-align:right;color:#E35300;margin-bottom:50px">Jubilaciones</H3>
             <hr style="border: 1px solid #E35300">
        <?php if (count($jubilaciones)):?>
             <table style="font-size:12px" class="table table-hover">

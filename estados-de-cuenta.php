@@ -48,7 +48,8 @@ $tarjetas = getTarjetas($user['CI']);
           </div>
        
 <div class="hero-unit">
-    <H3 style="text-align:right;color:#E35300">Estados de cuenta</H3>
+     <?php include ('./inc/userInfo.php');?>
+    <H3 style="text-align:right;color:#E35300;margin-bottom:50px">Estados de cuenta</H3>
     <hr style="border: 1px solid #E35300">
     <H4>Prestamos</H4>
     <?php if(count($prestamos)):?>

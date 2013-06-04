@@ -17,9 +17,9 @@
               <ul class="navigation">
                     <li><a href="./index.php">Inicio</a></li>
                     
-                    <li><a href="#">Afiliados</a>
+                    <li><a href="#">Beneficiarios</a>
                         <ul>
-                            <?php if(getRole(ROLE_JUBILADO) || getRole(ROLE_PENSIONADO)) echo "<li><a href='./jubilados.php'>Pagos Jubilaciones</a></li>"; ?>
+                            <?php if(getRole(ROLE_JUBILADO) || getRole(ROLE_PENSIONADO)) echo "<li><a href='./jubilados.php'>Pagos</a></li>"; ?>
                             <li><a href="./prestamos.php">Prestamos</a></li>
                             <li><a href="./tarjetas-de-credito.php">Tarjetas de Credito</a></li>
                             <?php if(!getRole(ROLE_PENSIONADO)) echo "<li><a href='./aportes.php'>Aportes</a></li>"; ?>
@@ -29,7 +29,7 @@
                    
                     <li><a href="./estados-de-cuenta.php">Estados de Cuenta</a></li>
                     <?php if(getRole(ROLE_DIRECTIVO)) echo "<li><a href='#'>Consultas</a></li>"; ?>
-                    <li><a href="#">Reservaciones</a></li>
+                    <li><a href="./reservaciones.php">Reservaciones</a></li>
                     <li><a href="#">Inmuebles</a></li>
                     
                 </ul>

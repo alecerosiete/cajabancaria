@@ -42,7 +42,8 @@ $aportes = getAportes($user['CI']);
           </div>
 
         <div class="hero-unit">
-            <H3 style="text-align:right;color:#E35300">Aportes</H3>
+             <?php include ('./inc/userInfo.php');?>
+            <H3 style="text-align:right;color:#E35300;margin-bottom:50px">Aportes</H3>
             <hr style="border: 1px solid #E35300">
         <?php if (count($aportes)):?>
       <table class="table table-bordered" style="font-size: 12px;background:#f5f5f5">

@@ -48,8 +48,8 @@ $tarjetas = getTarjetas($user['CI']);
           </div>
 
         <div class="hero-unit">
-            
-        <H3 style="text-align:right;color:#E35300">Tarjetas de Cr&eacute;dito</H3>
+             <?php include ('./inc/userInfo.php');?>
+        <H3 style="text-align:right;color:#E35300;margin-bottom:50px">Tarjetas de Cr&eacute;dito</H3>
         <hr style="border: 1px solid #E35300">
         <?php if (count($tarjetas)):?>
         <?php foreach ($tarjetas as $tc):?>

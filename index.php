@@ -19,7 +19,7 @@ $barrio = getBarrio($userInfo[0]['BARRIO']);
 //print_r($user);
 $role = getRole(ROLE_PENSIONADO);
 
-print_r($role);
+//print_r($role);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,7 +92,8 @@ print_r($role);
       
       <!-- Formulario de Datos Personales -->         
       <div class="hero-unit">
-        <h3>Datos personales</h3>
+        <H3 style="text-align:right;color:#E35300;margin-bottom:-20px">Datos personales</h3>
+            <hr style="border: 1px solid #E35300">
         <table id="personal-data" class="table table-striped" style="font-size:12px">
             <tbody>
               <tr>
