@@ -1,5 +1,51 @@
 <?php
+function consultaPerfil($ci){
+    $db = conect();
+    $sql = "SELECT *, u.ci as ci FROM sys_user AS u, sys_group AS g WHERE u.active = 1 AND u.tipo_de_usuario = g.nombre_de_grupo AND u.ci = $ci";
+    $statement = $db->prepare($sql);
+        
+    
+    /*Ejecutamos la consulta con los parametros*/
+    $statement->execute();
 
+    if( $item = $statement->fetch(PDO::FETCH_ASSOC) ) {
+        $p = array('PERFIL' => $item);
+
+        $db = null;
+        
+      } else {
+        $p = null;
+        $db = null;
+
+      }
+      return $p['PERFIL'];
+}
+
+function getDatosDePadron($ci){
+    $db = conect();
+    
+    /* Obtiene datos del usuario */
+    $sql = "SELECT pw.*, pb.`NOMBRE DEL BANCO` AS NOMBREBANCO FROM pddirweb pw INNER JOIN prparban pb ON pw.BANCO = pb.BANCO AND `CEDULA DE IDENTIDAD` = '$ci'";
+    $statement = $db->prepare($sql);
+    $statement->execute();
+    $rowInfo = $statement->fetchAll();
+    $db = null;
+    return $rowInfo[0];
+}
+
+
+
+function getTipoDeUsuario($ci){
+    $db = conect();
+    /* Obtiene datos del usuario */
+    $sql = "SELECT tipo_de_usuario FROM sys_user WHERE ci = '$ci'";
+    $statement = $db->prepare($sql);
+    $statement->execute();
+    $rowInfo = $statement->fetch(PDO::FETCH_ASSOC);
+    //print_r($rowInfo);
+    $db = null;
+    return $rowInfo['tipo_de_usuario'];
+}
 
 function getUserInfo(){
 
@@ -166,6 +212,19 @@ function getCodigoOperacion($codigo){
     return $codigos['DESCRIPCION'];
    
 }
+
+function getLocales(){
+    $db = conect();
+    $sql = "SELECT * FROM aqpartloc;";
+    $statement = $db->prepare($sql);
+    $statement->execute();
+    $locales = $statement->fetchAll();
+    //print_r($rowInfo);
+    $db = null;
+    return $locales;
+   
+}
+
 /*
 function getUserMenu(){
     $userInfo = getRo

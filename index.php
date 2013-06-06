@@ -103,15 +103,11 @@ $role = getRole(ROLE_PENSIONADO);
                 
               </tr>
               <tr>
-               <th>Cedula de Id: </th><td><?= $userInfo[0]['CEDULA DE IDENTIDAD'] ?></td>
+                <th>Cedula de Id: </th><td><?= $userInfo[0]['CEDULA DE IDENTIDAD'] ?></td>
                 <th>Nombre: </th><td><?= $userInfo[0]['NOMBRE'] ?></td>
                 <th>Apellido: </th><td colspan="2"><?= $userInfo[0]['APELLIDO'] ?></td>
                 
               </tr>
-            
-
-
-
               <tr>
                 <th>Direccion: </th><td><?= $userInfo[0]['NOMBRE DE LA CALLE'] ?></td>
                 <th>Numero: </th><td ><?= $userInfo[0]['NUMERO DE LA CASA'] ?></td> 
@@ -121,7 +117,7 @@ $role = getRole(ROLE_PENSIONADO);
               <tr>
                 <th>Ciudad: </th><td><?= $ciudad ?></td>
                 <th>Localidad: </th><td ><?= $localidad ?></td>
-                <th>Perfil: </th><td><?= $userInfo[0]['PERFILWEB'] ?></td>
+                <th>Perfil: </th><td><?= strtoupper($user['data']['tipo_de_usuario']) ?></td>
                 
               </tr>
               <tr>
@@ -145,7 +141,7 @@ $role = getRole(ROLE_PENSIONADO);
         </p>
       </div>
       
-      <!-- Modal Agregar Clientes-->
+      <!-- Modal Modificar datos -->
        
         <div id="modalUserData" class="modal hide fade in" style="display: none;">
           <div class="modal-header">
@@ -168,9 +164,14 @@ $role = getRole(ROLE_PENSIONADO);
                         <select name="nombre-del-barrio" id="nombre-del-barrio">
                           <?php
                             $barrios = getBarrios();
-
+                            $selected = "";
                             foreach ($barrios as $item){
-                                echo "<option name='".$item['BARRIO']."'>".$item['DESCRIPCION']."</option>";
+                                if($barrio == $item['DESCRIPCION']){
+                                    $selected = 'selected';
+                                }else{
+                                    $selected = "";
+                                }
+                                echo "<option $selected name='".$item['BARRIO']."'>".$item['DESCRIPCION']."</option>";
                             }
                           ?>
                         </select>
@@ -181,10 +182,16 @@ $role = getRole(ROLE_PENSIONADO);
                           
                           <select name="nombre-de-la-ciudad" id="nombre-de-la-ciudad">
                           <?php
+                            $selected = "";
                             $ciudades = getCiudades();
-
+                            
                             foreach ($ciudades as $item){
-                                echo "<option name='".$item['CIUDAD']."'>".$item['DESCRIPCION']."</option>";
+                                if($ciudad == $item['DESCRIPCION']){
+                                    $selected = 'selected';
+                                }else{
+                                    $selected = "";
+                                }
+                                echo "<option $selected name='".$item['CIUDAD']."'>".$item['DESCRIPCION']."</option>";
                             }
                           ?>
                         </select>
@@ -201,9 +208,15 @@ $role = getRole(ROLE_PENSIONADO);
                             <select name="nombre-de-localidad" id="nombre-de-localidad">
                                 <?php
                                   $localidades = getLocalidades();
-
+                                    $selected = "";
+                                    
                                   foreach ($localidades as $item){
-                                      echo "<option name='".$item['LOCALIDAD']."'>".$item['DESCRIPCION']."</option>";
+                                      if($localidad == $item['DESCRIPCION']){
+                                        $selected = 'selected';
+                                        }else{
+                                            $selected = "";
+                                        }
+                                      echo "<option $selected name='".$item['LOCALIDAD']."'>".$item['DESCRIPCION']."</option>";
                                   }
                                 ?>
                             </select>

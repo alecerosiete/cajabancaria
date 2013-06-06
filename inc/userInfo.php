@@ -5,7 +5,7 @@
 <table class="table table-bordered" style="width: 550px;float:left;">
         <tr>
             <td width="25%" style="text-align:right;font-weight: bold">Nombre:</td>
-            <td width="25%"><?=$user['data']['nombre']?></td>
+            <td width="25%" colspan="3"><?=$user['data']['nombre']?></td>
             <!--td width="25%" style="text-align:right;font-weight: bold">Apellido:</td>
             <td width="25%"></td-->
         </tr>    

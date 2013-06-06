@@ -28,7 +28,7 @@
                     </li>
                    
                     <li><a href="./estados-de-cuenta.php">Estados de Cuenta</a></li>
-                    <?php if(getRole(ROLE_DIRECTIVO)) echo "<li><a href='#'>Consultas</a></li>"; ?>
+                    <?php if(getRole(ROLE_DIRECTIVO)) echo "<li><a href='./consultas.php'>Buscar</a></li>"; ?>
                     <li><a href="./reservaciones.php">Reservaciones</a></li>
                     <li><a href="#">Inmuebles</a></li>
                     

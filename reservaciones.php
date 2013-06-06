@@ -51,17 +51,13 @@ $db = conect();
                 <H3 style="text-align:right;color:#E35300;margin-bottom:50px">Consulta de Local - Sede Social</H3>
                 <hr style="border: 1px solid #E35300">
                 
-                   <table class='table table-bordered'>
-                        <thead>
+                   <table class='table table-bordered' >
+                        <thead >
                             <tr>
-                                <th>Inicio de Fecha/Hora</th>
+                                <th >Inicio de Fecha/Hora</th>
                                 <th>Fin de Fecha/Hora</th>
                                 <th>Tipo de local</th>
-                                <th>
-                                    <div id="btn-get-reservas" class="btn btn-primary">
-                                            Consultar
-                                    </div>
-                                </th>
+                                <th>Mostrar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -86,20 +82,36 @@ $db = conect();
                                   </td>
                                    <td>
                                       <select name="tipoLocal" id="tipoLocal"> 
-                                          
-                                          <option value="5">5</option>
-                                          <option value="10">10</option>
-                                          <option value="20">20</option>
-                                          <option value="50">50</option>
-                                          <option value="100">100</option>
-
+                                          <option value=''>Todos</option>
+                                          <?php
+                                            $locales = getLocales();
+                                            foreach ($locales as $local) {
+                                                print_r($local);
+                                                echo " <option value='".$local['TIPO DE LOCAL']."'>".$local['DESCRIPCION']."</option>";
+                                            }
+                                          ?>
                                        </select> 
                                   </td>                                           
-                                      <td>
-                                       
-                                     </td>
+                                  <td>
+                                    <select style="width:80px" name="cantidadRegistros" id="cantidadRegistros"> 
+                                          <option value=''>Todo</option>
+                                          <option value='5'>5</option>
+                                          <option value='10'>10</option>
+                                          <option value='20'>20</option>
+                                          <option value='40'>40</option>
+                                          <option value='100'>100</option>
+                                          
+                                    </select> 
+                                  </td>
                              </tr>
-
+                             <tr>
+                                 <td colspan="4" style="text-align:center">
+                                     
+                                     <div  id="btn-get-reservas" class="btn btn-primary btn-large">
+                                            Consultar
+                                    </div>
+                                 </td>
+                             </tr>
                             <script type="text/javascript"
                                     src="./resources/bootstrap/assets/js/jquery.min.js">
                             </script>
