@@ -1,6 +1,7 @@
 $(document).ready(function(){
     /* PDDIRWEB DATA CHARGING */
     
+    
     /* Mostrar datos de consulta */
     $('#btn-consultar').click(function(){
         //alert("procesado...")

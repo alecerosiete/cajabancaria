@@ -49,8 +49,10 @@ $tarjetas = getTarjetas($user['CI']);
        
 <div class="hero-unit">
      <?php include ('./inc/userInfo.php');?>
+    
     <H3 style="text-align:right;color:#E35300;margin-bottom:50px">Estados de cuenta</H3>
     <hr style="border: 1px solid #E35300">
+    <div style="float:right;display: inherit" class="btn btn-mini"><i class="icon-download" ></i><a href="./resources/dompdf/dom.php">Descargar</a></div>
     <H4>Prestamos</H4>
     <?php if(count($prestamos)):?>
         <table style="font-size:12px" class="table table-hover">

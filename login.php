@@ -13,9 +13,11 @@ session_destroy();
     <meta name="author" content="">
     <link href="./resources/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
     <link href="./resources/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="./resources/bootstrap/assets/css/jquery-ui.css" rel="stylesheet">
+    <link href="./resources/bootstrap/assets/css/keyboard.css" rel="stylesheet">
     <style type="text/css">
       body {
-          margin-top: 50px;
+          margin-top: 0px;
 
         background-color: #f5f5f5;
       }
@@ -49,14 +51,14 @@ session_destroy();
      </head>
 
   <body>
-
-    <div class="container">
-
+<div align="center" style="height: 125px; width: 435px;margin-left: auto;margin-right: auto;background:url('./resources/images/logo.png') no-repeat"></div>
+    <div class="container" >
+        
       <form class="form-signin" action="./actions/login.do.php" method="post">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="input-block-level" placeholder="Cedula de Identidad" name="ci">
-        <input type="password" class="input-block-level" placeholder="Pin" name="pin">
-        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+        <h2 class="form-signin-heading" >Acceso al sistema</h2>
+        <input id="ci" type="text" class="input-block-level" placeholder="Cedula de Identidad" name="ci">
+        <input id="pin"type="password" class="input-block-level" placeholder="Pin.." name="pin">
+        <button class="btn btn-large btn-primary" type="submit">Entrar</button>
         
         
       </form>
@@ -68,5 +70,21 @@ session_destroy();
         
         <?php require './inc/footer.php'; ?>
         <script src="./resources/ajax/ajaxFunctions.js"></script>
+        
+        <script src="./resources/bootstrap/assets/js/jquery.keyboard.js"></script>
+        <script src="./resources/bootstrap/assets/js/jquery.mousewheel.js"></script>
+        <script src="./resources/bootstrap/assets/js/jquery.keyboard.extension-typing.js"></script>
+        <script type="text/javascript">
+	$('#pin') 
+	 .keyboard({ 
+	  layout : 'num', 
+	  lockInput    : true,
+	  restrictInput : true, // Prevent keys not in the displayed keyboard from being typed in 
+	  preventPaste : true,  // prevent ctrl-v and right click 
+	  autoAccept : true 
+	 }) 
+	 .addTyping();
+        
+        </script>
   </body>
 </html>
