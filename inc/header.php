@@ -52,5 +52,5 @@
           border-right: 0;
           border-radius: 0 3px 3px 0;
         }
-    </script>
+    </style>
 

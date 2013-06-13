@@ -15,7 +15,9 @@ if( !empty($ci) && !empty($pin) ) {
      * WHERE u.active = 1 AND u.groupname=g.groupname AND u.username=? AND u.password=md5(?));
      * 
      */
-    $sql = "SELECT *, u.ci as ci FROM sys_user AS u, sys_group AS g WHERE u.active = 1 AND u.tipo_de_usuario = g.nombre_de_grupo AND u.ci = ? AND u.password=?";
+    //$sql = "SELECT *, u.ci as ci FROM sys_user AS u, sys_group AS g WHERE u.active = 1 AND u.tipo_de_usuario = g.nombre_de_grupo AND u.ci = ? AND u.password=?";
+    
+    $sql = "SELECT *,u.ci as ci FROM sys_user AS u, sys_group AS g, sys_profile AS p WHERE u.active = 1 AND u.tipo_de_usuario = g.nombre_de_grupo AND u.perfil_de_usuario = p.perfil AND u.ci = ? AND u.password = ?";
     $statement = $db->prepare($sql);
     /*Nueva consulta para acceso por roles
      * 
@@ -36,7 +38,7 @@ if( !empty($ci) && !empty($pin) ) {
         redirect(ROOT_PATH."/index.php");
       } else {
           //error_log($statement);  
-        addError("Debe ingresar un usuario existente, activo y con contrase&ntilde;a vigente ".$sql);
+        addError("Debe ingresar un usuario existente, activo y con contrase&ntilde;a vigente ");
         $db = null;
         redirect(ROOT_PATH."/login.php");
       }

@@ -8,13 +8,20 @@ $db = conect();
 
 $ci = $_POST['ci'];
 
+$perfil = consultaPerfil($ci);
+
+if(empty($perfil)){
+    //echo "Esta vacio";
+    echo false;
+    die();
+}
 $tipo_usuario = getTipoDeUsuario($ci);
 $datos_de_padron = getDatosDePadron($ci);
 $aportes = getAportes($ci);
 $jubilaciones = getJubilados($ci);
 $prestamos = getPrestamos($ci);
 $tarjetas = getTarjetas($ci);
-$perfil = consultaPerfil($ci);
+
 
 ?>
 
@@ -23,7 +30,7 @@ $perfil = consultaPerfil($ci);
 <table id="info-de-consulta" class="table table-striped" style="font-size:12px">
             <tbody>
               <tr>
-                  <th width='15%'>Tipo de Cliente: </th><td width='20%'><?= strtoupper($tipo_usuario) ?></td>
+                  <th width='15%'>Tipo de Usuario: </th><td width='20%'><?= strtoupper($tipo_usuario) ?></td>
                 <th>Padron: </th><td><?= $datos_de_padron['PADRON']?></td>
                 <th>Banco: </th><td colspan="2"><?= $datos_de_padron['NOMBREBANCO']?></td>
                 
@@ -69,14 +76,14 @@ $perfil = consultaPerfil($ci);
          
         <ul class="nav nav-pills">
           <li  class="active"><a href="#prestamos" data-toggle="tab">Prestamos</a></li>  
-          <?php if($perfil[ROLE_JUBILADO] == 1|| $perfil[ROLE_PENSIONADO] == 1){?>
+          <?php if(strstr(ROLE_JUBILADO,$perfil['tipo_de_usuario']) || strstr(ROLE_PENSIONADO,$perfil['tipo_de_usuario'])){?>
           
           <li><a href="#pagos" data-toggle="tab">Pagos</a></li>
           <?php }?>
               
           
           <li><a href="#tarjetas-de-credito" data-toggle="tab">Tarjetas de Crédito</a></li>
-          <?php if(!$perfil[ROLE_PENSIONADO]){?>
+          <?php if(!(strstr(ROLE_PENSIONADO,$perfil['tipo_de_usuario']))){?>
           <li><a href="#aportes" data-toggle="tab">Aportes</a></li>
           <?php } ?>
         </ul>
@@ -301,6 +308,6 @@ $perfil = consultaPerfil($ci);
      <?php
      
      sleep(1);
-echo "Cedula de identidad: $ci";
+
 
 ?>

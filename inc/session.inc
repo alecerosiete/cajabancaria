@@ -7,11 +7,11 @@ define('DB_NAME', 'cajaweb');
 define('DB_USER', 'caja');
 define('DB_PASSWORD', 'caja');
 
-define('ROLE_SYSTEM', 'roleAdmin');
-define('ROLE_AFILIADO', 'afiliado');
-define('ROLE_DIRECTIVO', 'directivo');
-define('ROLE_JUBILADO', 'jubilado');
-define('ROLE_PENSIONADO', 'pensionado');
+define('ROLE_SYSTEM', 'Administrador');
+define('ROLE_AFILIADO', 'Activo');
+define('ROLE_DIRECTIVO', 'Directivo');
+define('ROLE_JUBILADO', 'Jubilado');
+define('ROLE_PENSIONADO', 'Pensionado');
 
 define('S_USER', 'user');
 define('S_ERROR_LIST', 'errors');
@@ -52,7 +52,14 @@ function isTimeOutLogin() {
 
 function getRole($role) {
     $user = getUser();
-    return $user['data'][$role];
+    
+    return strstr($role, $user['data']['tipo_de_usuario']);
+}
+
+function getPerfil($perfil) {
+    $user = getUser();
+    
+    return strstr($perfil, $user['data']['perfil_de_usuario']);
 }
 
 function assertRole($role) {

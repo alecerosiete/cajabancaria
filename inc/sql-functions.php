@@ -1,7 +1,7 @@
 <?php
 function consultaPerfil($ci){
     $db = conect();
-    $sql = "SELECT *, u.ci as ci FROM sys_user AS u, sys_group AS g WHERE u.active = 1 AND u.tipo_de_usuario = g.nombre_de_grupo AND u.ci = $ci";
+    $sql = "SELECT *, u.ci as ci FROM sys_user AS u, sys_group AS g WHERE  u.tipo_de_usuario = g.nombre_de_grupo AND u.ci = '$ci'";
     $statement = $db->prepare($sql);
         
     
@@ -25,12 +25,13 @@ function getDatosDePadron($ci){
     $db = conect();
     
     /* Obtiene datos del usuario */
-    $sql = "SELECT pw.*, pb.`NOMBRE DEL BANCO` AS NOMBREBANCO FROM pddirweb pw INNER JOIN prparban pb ON pw.BANCO = pb.BANCO AND `CEDULA DE IDENTIDAD` = '$ci'";
+    $sql = "SELECT pw.*, pb.`NOMBRE DEL BANCO` AS NOMBREBANCO FROM pddirweb pw INNER JOIN prparban pb ON pw.BANCO = pb.BANCO AND pw.`CEDULA DE IDENTIDAD` = $ci";
     $statement = $db->prepare($sql);
     $statement->execute();
-    $rowInfo = $statement->fetchAll();
+    $rowInfo = $statement->fetch(PDO::FETCH_ASSOC);
+    //print_r($rowInfo);
     $db = null;
-    return $rowInfo[0];
+    return $rowInfo;
 }
 
 
@@ -224,19 +225,45 @@ function getLocales(){
     return $locales;
    
 }
-
 /*
-function getUserMenu(){
-    $userInfo = getRo
-    $db = conect();
-    $sql = "SELECT * FROM maetabcod WHERE `CODIGO OPERACION` = $codigo";
+function getProfile($ci){
+     $db = conect();
+     
+    $sql = "SELECT * FROM sys_user WHERE ci = $ci";
     $statement = $db->prepare($sql);
     $statement->execute();
-    $codigos = $statement->fetch(PDO::FETCH_ASSOC);
-    //print_r($rowInfo);
+    $rowInfo = $statement->fetch(PDO::FETCH_ASSOC);
     $db = null;
-    return $codigos['DESCRIPCION'];
-   
+    if(($rowInfo[$ci])>0){
+        return 1;
+    }else{
+        return 0;
+    }
 }
- * 
- */
+*/
+
+function activateUserState($ci){
+    $db = conect();
+    
+    $sql = "SELECT active FROM sys_user WHERE ci  = '$ci' ";
+    $statement = $db->prepare($sql);
+    $statement->execute();
+    $active = $statement->fetch(PDO::FETCH_ASSOC);
+    error_log("ESTADO ACTIVE:".$active['active']);
+    $sql = "UPDATE sys_user SET active = ";
+    $sql .= $active['active'] == 1 ? 0 : 1;
+    $sql .= " WHERE ci = '$ci'";
+    $statement = $db->prepare($sql);
+    $statement->execute();
+    $sql = "SELECT active FROM sys_user WHERE ci  = '$ci' ";
+    $statement = $db->prepare($sql);
+    $statement->execute();
+    $active = $statement->fetch(PDO::FETCH_ASSOC);
+    error_log("ESTADO ACTIVE:".$active['active']);
+    
+    $db = null;
+    return $active['active'];
+    
+    
+    
+}

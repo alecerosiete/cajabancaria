@@ -2,6 +2,7 @@
 require './inc/session.inc';
 assertUser();
 $user = getUser();
+//print_r($user);
 require './inc/conexion-functions.php';
 require './inc/sql-functions.php';
 
@@ -16,7 +17,7 @@ $localidad = getLocalidad($userInfo[0]['LOCALIDAD']);
 
 $barrio = getBarrio($userInfo[0]['BARRIO']);
 
-//print_r($user);
+
 $role = getRole(ROLE_PENSIONADO);
 
 //print_r($role);
@@ -97,7 +98,7 @@ $role = getRole(ROLE_PENSIONADO);
         <table id="personal-data" class="table table-striped" style="font-size:12px">
             <tbody>
               <tr>
-                <th>Tipo de Cliente: </th><td><?= $user['data']['descripcion']?> </td>
+                <th>Tipo de usuario: </th><td><?= $user['data']['tipo_de_usuario']?> </td>
                 <th>Padron: </th><td><?= $userInfo[0]['PADRON'] ?></td>
                 <th>Banco: </th><td colspan="2"><?= $userInfo[0]['NOMBREBANCO'] ?></td>
                 
@@ -117,7 +118,7 @@ $role = getRole(ROLE_PENSIONADO);
               <tr>
                 <th>Ciudad: </th><td><?= $ciudad ?></td>
                 <th>Localidad: </th><td ><?= $localidad ?></td>
-                <th>Perfil: </th><td><?= strtoupper($user['data']['tipo_de_usuario']) ?></td>
+                <th>Perfil: </th><td><?= strtoupper($user['data']['perfil_de_usuario']) ?></td>
                 
               </tr>
               <tr>

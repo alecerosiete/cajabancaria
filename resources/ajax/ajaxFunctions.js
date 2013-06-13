@@ -1,9 +1,51 @@
 $(document).ready(function(){
     /* PDDIRWEB DATA CHARGING */
     
+    /* Boton activa usuario */
+    $("#activate-user-acount").click(function(){
+        var ci = $("#ci-update").val();
+        
+        $.ajax({
+                type: "POST",
+                url: "./actions/activate-user.php",
+                data: {ci:ci},
+                success: function(data){
+                    
+                    window.location = "../users.php";
+                    
+              }
+        });
+    });
     
-    /* Mostrar datos de consulta */
-    $('#btn-consultar').click(function(){
+    
+    /* Aplicar cambios user edit data */
+    $("#btn-update-user-data").click(function(){
+
+            var ci = $("#ci-update").val();
+            var nombre = $("#nombre-update").val();
+            var tipo_de_usuario = $("#tipo_de_usuario").val();
+            var perfil = $("#perfil_de_usuario").val();
+
+            //var password = $("#password-update").val();
+            //var password2 = $("#password-update-re").val();
+            
+                    $.ajax({
+                            type: "POST",
+                            url: "./actions/update-user-data-action.php",
+                            data: {ci:ci,nombre:nombre,tipo_de_usuario:tipo_de_usuario,perfil:perfil},
+                            success: function(){
+                                $("#modalUserData").modal("hide");
+                                url = "/users.php";
+                                $(location).attr('href',url);
+                          }
+                    });
+               
+            
+        });  
+    
+    
+    /* Administracion de Usuarios */
+    $('#btn-user-update').click(function(){
         //alert("procesado...")
         //var rows = $("#tipoLocal").val();
         var ci = $("#input-ci").val()
@@ -11,16 +53,48 @@ $(document).ready(function(){
             alert("Vacio");
         }else{
     
+            var $loading = $('#visualizar-usuario').html("<div class='progress progress-striped active'><div class='bar' style='width: 100%;'>Cargando.. </div></div>");
+
+             $.ajax({
+                type: "POST",
+                url: "/actions/user-update.php",
+                data: {
+                    ci:ci
+
+                }
+                }).done(function( data ) {
+                    $loading.html(data);
+
+             });
+        }
+    })
+    /* Fin administracion de usuarios */
+    
+    /* Mostrar datos de consulta */
+    $('#btn-consultar').click(function(){
+        //alert("procesado...")
+        //var rows = $("#tipoLocal").val();
+        var ci = $("#input-ci").val()
+        if( !(ci)){
+            alert("Ingrese un numero de cedula valido")
+            exit();
+
+        }else{
+    
             var $loading = $('#visualizar-consulta').html("<div class='progress progress-striped active'><div class='bar' style='width: 100%;'>Cargando.. </div></div>");
 
              $.ajax({
                 type: "POST",
                 url: "../../actions/listaConsulta.php",
+                
                 data: {
                     ci:ci,
 
                 }
                 }).done(function( data ) {
+                    if(data == false){
+                        data = "<div class='alert alert-warning'>No se encontro ningun registro..</div>";
+                    }
                     $loading.html(data);
 
              });
@@ -82,7 +156,7 @@ $(document).ready(function(){
                     data: {ci:ci,numeroDeCasa:numeroDeCasa,barrio:barrio,ciudad:ciudad,calle:calle,localidad:localidad,celular1:celular1,celular2:celular2,lineaBaja1:lineaBaja1,lineaBaja2:lineaBaja2,email:email},
                     success: function(){
                         $("#modalUserData").modal("hide");
-                        url = "http://localhost";
+                        url = "/index.php";
                         $(location).attr('href',url);
                   }
             });
