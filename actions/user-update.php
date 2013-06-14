@@ -141,10 +141,14 @@ $perfil = consultaPerfil($ci);
                     <div align="center">
                       <input type="hidden" id="ci-update" value="<?=$ci?>">
                       <div id='btn-generate-pin' class='btn btn-success'>Generar PIN</div>
-                      <div class='show-pin'></div><br>
+                      <div id='show-pin'></div><br>
                       <div id="btn-save-pin" class='btn btn-success'>Guardar</div>
                     </div>
                 </table>
+               <hr>
+               <h6>
+                   Una vez guardado el PIN generado ya puede ser utilizado para acceder a la cuenta
+               </h6>
                 <div class="modal-footer">
                     
                     <button href="#" id="modal-generate-pin-close" data-dismiss="modal" class="btn">Cerrar</button>

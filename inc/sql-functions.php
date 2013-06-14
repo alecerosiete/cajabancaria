@@ -1,4 +1,5 @@
 <?php
+    
 function consultaPerfil($ci){
     $db = conect();
     $sql = "SELECT *, u.ci as ci FROM sys_user AS u, sys_group AS g WHERE  u.tipo_de_usuario = g.nombre_de_grupo AND u.ci = '$ci'";
@@ -264,6 +265,9 @@ function activateUserState($ci){
     $db = null;
     return $active['active'];
     
-    
-    
+        
 }
+
+
+
+

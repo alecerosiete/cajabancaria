@@ -1,6 +1,49 @@
 $(document).ready(function(){
     /* PDDIRWEB DATA CHARGING */
     
+    
+    /* Guardar pin */
+    $('#btn-save-pin').click(function(){
+       
+        var ci = $("#ci-update").val();
+        var pin = $("#show-pin").text();
+
+        $.ajax({
+           type: "POST",
+           url: "./actions/save-pin-process.php",
+           data: {
+               ci:ci,
+               pin:pin
+           },
+           }).done(function() {
+               alert("Guardado")
+
+           });
+             
+    })
+    /* Fin gaurdar pin */
+    
+    
+    
+    
+    
+    /* Generacion de pin */
+    $('#btn-generate-pin').click(function(){
+       
+        var $loading = $('#show-pin').html("<div class='progress progress-striped active'><div class='bar' style='width: 100%;'>Cargando.. </div></div>");
+             var long = 4;
+             $.ajax({
+                type: "POST",
+                url: "./actions/generate-pin-process.php",
+                data: {long:long},
+                }).done(function( data ) {
+                    //alert("Pin generado");
+                    $loading.html(data);
+                });
+             
+    })
+    /* Fin generacion de pin */
+    
     /* Boton activa usuario */
     $("#activate-user-acount").click(function(){
         var ci = $("#ci-update").val();
