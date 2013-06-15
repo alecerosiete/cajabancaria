@@ -37,7 +37,7 @@
                     }else if(getPerfil(ROLE_SYSTEM)){ ?>
                         <li><a href='./users.php'>Usuarios</a>
                         <ul>
-                            <li><a href="#">Banner</a></li>
+                            <li><a href="./banner-admin.php">Banner</a></li>
                             
                         </ul>
                          <div class="clear"></div>

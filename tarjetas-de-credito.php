@@ -117,7 +117,15 @@ $tarjetas = getTarjetas($user['CI']);
             <div class='alert alert-warning'>No existen ninguna Tarjeta de Crédito ligada al Cliente</div>
         <?php endif;?>
         </div>
-    </div> <!-- /container -->
+ <hr>
+    <footer>
+        <div class="footer">
+             Caja de Jubilaciones y Pensiones de Empleados de Bancos y Afines del Paraguay &copy; 2012 - Todos los Derechos Reservados
+     www.cajabancaria.gov.py <br> Humaita 357 e/Chile y Alberdi |(595 21) 492 051 / 052 / 053 / 054
+        </div> 
+    </footer>
+<hr>   
+        </div> <!-- /container -->
     
     <?php require './inc/footer.php'; ?>
     
