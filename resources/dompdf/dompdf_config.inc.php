@@ -168,7 +168,7 @@ define("DOMPDF_DEFAULT_FONT", "serif");
  *
  * @var int
  */
-define("DOMPDF_DPI", "150");
+define("DOMPDF_DPI", "90");
 
 /**
  * Enable inline PHP
