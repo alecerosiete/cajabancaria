@@ -277,47 +277,52 @@ $role = getRole(ROLE_PENSIONADO);
       -->
       <!-- SECCION BANNER DE NOVEDADES Y NOTICIAS -->
       <div class="row-fluid ">
-        <div class="span4">
-          <h2>Novedades</h2>
-          <p>Aqui puede ir las novedades sobre la Caja Bancaria, asi como noticias o promociones. Estara asociada a varias imagenes que iran rotando. Este banner tendra un panel de administracion para la Alta y Baja de imagenes y texto. </p>
-         
-        </div>
+          <div class="span4">
+            <h2><?= getTituloNovedades() ?></h2>
+            <p><?= getTextoNovedades() ?> </p>
+
+          </div>
         <div class="span8">
                     
         <!-- Carousel
            ================================================== -->
            <div id="myCarousel" class="carousel slide">
              <div class="carousel-inner">
-               <div class="item active">
-                 <img src="./resources/images/1.jpg" alt="">
-                 <div class="container">
-                   <div class="carousel-caption">
-                     <h1>Ejemplo de Banner.</h1>
-                     <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+               
+                 <!-- Obtiene las imagenes -->
+                 <?php
+                 
+                    $a_banner = getBannerNovedades();
+                    //print_r($a_banner);
+                    $active = 0;
+                    foreach ($a_banner as $banner) {
+                        
+                        if($active == 0){
+                           echo "<div class='item active'>";
+                           $active = -1;
+                        }else{
+                           echo "<div class='item'>";
+                        }
+                                   
+                        echo "<img src='./resources/images/banner/".$banner['news_banner_name']."' alt='$banner'>";
+                        echo "<div class='container'></div>";
+                        ?>
+                        <div class="carousel-caption">
+                            <h1><?= $banner['news_banner_title'] ?></h1>
+                            <p class="lead"> <?= $banner['news_banner_text'] ?></p>
 
-                   </div>
-                 </div>
-               </div>
-               <div class="item">
-                 <img src="./resources/images/2.jpg" alt="">
-                 <div class="container">
-                   <div class="carousel-caption">
-                     <h1>Otro ejemplo de banner.</h1>
-                     <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        </div>
 
-                   </div>
-                 </div>
-               </div>
-               <div class="item">
-                 <img src="./resources/images/3.jpg" alt="">
-                 <div class="container">
-                   <div class="carousel-caption">
-                     <h1>Una imagen mas para presentar mejor.</h1>
-                     <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-
-                   </div>
-                 </div>
-               </div>
+                        
+                        
+                        <?php
+                        echo "</div>";
+                        
+                    }       
+                  
+                  
+                 ?>                               
+                 
              </div>
              <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
              <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>

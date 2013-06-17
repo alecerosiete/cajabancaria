@@ -1,6 +1,71 @@
 $(document).ready(function(){
     /* PDDIRWEB DATA CHARGING */
     
+    /* Boton guardar info de banner */
+    $('#btn-guardar-banner').click(function(){
+       
+        var titulo = $("#titulo-banner").val();
+        var texto = $("#texto-banner").val();
+        var nombre_imagen = $("#banner").val().split('\\').pop();
+        var extension = nombre_imagen.split('.').pop();
+        //validar que sean solo archivos imagen
+        var validos = ["jpg", "png", "gif","jpeg"];
+        if($.inArray(extension, validos) == -1){
+            alert("Formato inválido de imagen, especifique otra imagen");
+
+        }else if(titulo.length == 0){
+            alert("Especifique un titulo");
+        }else if(texto.length == 0){
+            alert("Especifique un texto");
+        }else{
+            uploadFile('banner','archivo');        
+            $.ajax({
+               type: "POST",
+               url: "./actions/save-banner-novedades.php",
+               data: {
+                   titulo:titulo,
+                   texto:texto,
+                   nombre_imagen:nombre_imagen
+
+               },
+               }).done(function() {
+
+                   alert("Guardado");
+                   window.location = "../banner-admin.php";
+               });
+        }
+    });
+    
+    
+    /* Guardar novedades */
+    $('#btn-guardar-novedades').click(function(){
+       
+        var titulo = $("#titulo-novedades").val();
+        var texto = $("#texto-novedades").val();
+        
+        if(titulo.length == 0){
+            alert("Especifique un titulo");
+        }else if(texto.length == 0){
+            alert("Especifique un texto");
+        }else{
+                
+            $.ajax({
+               type: "POST",
+               url: "./actions/save-novedades.php",
+               data: {
+                   titulo:titulo,
+                   texto:texto,
+                  
+               },
+               }).done(function() {
+                   
+                   alert("Guardado");
+                   window.location = "../banner-admin.php";
+               });
+        }
+    });
+    /* Fin gaurdar novedades */
+  
     
     /* Guardar pin */
     $('#btn-save-pin').click(function(){
@@ -208,3 +273,20 @@ $(document).ready(function(){
         });  
         
 });
+
+function btn_borrar_banner(id){
+    alert("Borrar banner : "+id);
+    $.ajax({
+            type: "POST",
+            url: "./actions/borrar-banner.php",
+            data: {
+                id:id
+            },
+            success: function(){
+                alert("Borrado exitoso");
+                $('#'+id).remove();
+                url = "../banner-admin.php#banners";
+                window.location = url;
+          }
+    });
+}

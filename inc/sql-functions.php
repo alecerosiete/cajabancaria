@@ -268,6 +268,46 @@ function activateUserState($ci){
         
 }
 
+function getBannerNovedades(){
+    $db = conect();
+    $sql = "SELECT * FROM news";
+    $statement = $db->prepare($sql);
+    $statement->execute();
+    $banner = $statement->fetchAll();
+    //print_r($rowInfo);
+    $db = null;
+    return $banner;
+}
 
+function getTituloNovedades(){
+    $db = conect();
+    $sql = "SELECT news_title FROM news_gral";
+    $statement = $db->prepare($sql);
+    $statement->execute();
+    $banner_title = $statement->fetch(PDO::FETCH_ASSOC);
+    //print_r($rowInfo);
+    $db = null;
+    return $banner_title['news_title'];
+}
 
+function getTextoNovedades(){
+    $db = conect();
+    $sql = "SELECT news_text FROM news_gral";
+    $statement = $db->prepare($sql);
+    $statement->execute();
+    $news_text = $statement->fetch(PDO::FETCH_ASSOC);
+    //print_r($rowInfo);
+    $db = null;
+    return $news_text['news_text'];
+}
 
+function getBannerTitle(){
+    $db = conect();
+    $sql = "SELECT  FROM news";
+    $statement = $db->prepare($sql);
+    $statement->execute();
+    $news_text = $statement->fetch(PDO::FETCH_ASSOC);
+    //print_r($rowInfo);
+    $db = null;
+    return $news_text['news_text'];
+}

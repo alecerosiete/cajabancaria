@@ -64,7 +64,6 @@
             var percentageDiv = document.getElementById("percentageCalc");
             progressBar.value = 100;
             percentageDiv.innerHTML = "100%";
-            alert("Exito")
             //$('#barProgreso').css('width','0');
             //$('#myModal').modal('hide');
             //$('#btn-campaign-test-start').attr('disable',true);
@@ -114,6 +113,23 @@
 
 }
 
+
+ /* Validar formato de imagen */
+function validar_formato_imagen(){
+    //alert("Entro!");
+        var nombre_imagen = $("#banner").val().split('\\').pop();
+            var extension = nombre_imagen.split('.').pop();
+            //validar que sean solo archivos imagen
+            var validos = ["jpg", "png", "gif","jpeg"];
+            //alert($.inArray(extension, validos));
+            
+            if(jQuery.inArray(extension, validos) === -1){
+                
+                alert("Formato inválido de imagen");
+                $("#banner").replaceWith($("#banner").clone());
+
+            }
+}
 
 </script>
 
